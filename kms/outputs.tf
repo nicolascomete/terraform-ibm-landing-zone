@@ -26,7 +26,7 @@ output "key_management_guid" {
 
 output "key_rings" {
   description = "Key rings created by module"
-  value       = ibm_kms_key_rings.rings
+  value       = module.ibm_kms_key_rings.rings
 }
 
 ##############################################################################
@@ -41,10 +41,10 @@ output "keys" {
   value = [
     for kms_key in var.keys :
     {
-      name   = kms_key.name
-      id     = ibm_kms_key.key[kms_key.name].id
-      crn    = ibm_kms_key.key[kms_key.name].crn
-      key_id = ibm_kms_key.key[kms_key.name].key_id
+      name   = "kms_key.name"
+      id     = "ibm_kms_key.key[kms_key.name].id"
+      crn    = "ibm_kms_key.key[kms_key.name].crn"
+      key_id = "ibm_kms_key.key[kms_key.name].key_id"
     }
   ]
 }
@@ -54,10 +54,10 @@ output "key_map" {
   value = {
     for kms_key in var.keys :
     (kms_key.name) => {
-      name   = kms_key.name
-      id     = ibm_kms_key.key[kms_key.name].id
-      crn    = ibm_kms_key.key[kms_key.name].crn
-      key_id = ibm_kms_key.key[kms_key.name].key_id
+      name   = "kms_key.name"
+      id     = "ibm_kms_key.key[kms_key.name].id"
+      crn    = "ibm_kms_key.key[kms_key.name].crn"
+      key_id = "ibm_kms_key.key[kms_key.name].key_id"
     }
   }
 }
