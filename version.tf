@@ -9,6 +9,10 @@ terraform {
       # Atracker needs to have the v2 API
       version = ">= 1.45.0"
     }
+    restapi = {
+      source = "Mastercard/restapi"
+      version = "1.17.0"
+    }
     random = {
       source  = "hashicorp/random"
       version = ">= 3.4.2"
