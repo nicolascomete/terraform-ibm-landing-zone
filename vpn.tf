@@ -15,10 +15,10 @@ resource "ibm_is_ike_policy" "ike_policy" {
   name                     = "${var.prefix}-${each.key}"
   #resource_group           = ibm_is_vpn_gateway.gateway[each.value.gateway_name].id
   
-  authentication_algorithm = each.value.authentication_algorithm
-  encryption_algorithm     = each.value.encryption_algorithm
-  dh_group                 = each.value.dh_group 
-  ike_version              = each.value.ike_version
+  authentication_algorithm = each.value.ike_policy.authentication_algorithm
+  encryption_algorithm     = each.value.ike_policy.encryption_algorithm
+  dh_group                 = each.value.ike_policy.dh_group 
+  ike_version              = each.value.ike_policy.ike_version
 }
 
 /*resource "ibm_is_ipsec_policy" "ipsec_policy" {
