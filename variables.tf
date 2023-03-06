@@ -187,6 +187,17 @@ variable "vpn_gateways" {
           local_cidrs    = optional(list(string))
           peer_cidrs     = optional(list(string))
           admin_state_up = optional(bool)
+          ike_policy     = optional(object({
+            authentication_algorithm = string
+            encryption_algorithm     = string
+            dh_group                 = number
+            ike_version              = number
+          }))
+          ipsec_policy = optional(object({
+            authentication_algorithm = string
+            encryption_algorithm     = string
+            pfs                      = bool
+          }))
         })
       )
     })
