@@ -11,8 +11,8 @@ locals {
     
     
 resource "ibm_is_ike_policy" "ike_policy" {
-  for_each                  =  {for k, v in local.vpn_connection_map : k => v if lookup(v, "ike_policy", null) != null }
-  name                      = "${var.prefix}-${each.key}"
+  for_each                 =  {for k, v in local.vpn_connection_map : k => v if lookup(v, "ike_policy", null) != null }
+  name                     = "${var.prefix}-${each.key}"
   #resource_group           = ibm_is_vpn_gateway.gateway[each.value.gateway_name].
   
   authentication_algorithm = "sha256" #var.vpc_management_vpn_s2s.phase1.authentication_algorithm
