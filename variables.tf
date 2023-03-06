@@ -196,7 +196,7 @@ variable "vpn_gateways" {
           ipsec_policy = optional(object({
             authentication_algorithm = string
             encryption_algorithm     = string
-            pfs                      = bool
+            pfs                      = string
           }))
         })
       )
