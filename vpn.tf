@@ -8,28 +8,27 @@ locals {
 }
 
 ##############################################################################
-    
-    
+
 resource "ibm_is_ike_policy" "ike_policy" {
   for_each =  {for k, v in local.vpn_connection_map : k => v if lookup(v, "ike_policy", null) != null }
   
   name                     = "${var.prefix}-${each.key}"
-  resource_group           = ibm_is_vpn_gateway.gateway[each.value.gateway_name].resource_group.id
+  resource_group           = ibm_is_vpn_gateway.gateway[each.value.gateway_name].resource_group
   authentication_algorithm = each.value.ike_policy.authentication_algorithm
   encryption_algorithm     = each.value.ike_policy.encryption_algorithm
   dh_group                 = each.value.ike_policy.dh_group 
   ike_version              = each.value.ike_policy.ike_version
 }
 
-/*resource "ibm_is_ipsec_policy" "ipsec_policy" {
-  name                     = "${var.prefix}-${var.vpc_workload.prefix}-ipsec-policy"
-  resource_group           = data.ibm_resource_group.resource_group.id
-  authentication_algorithm = var.vpc_management_vpn_s2s.phase2.authentication_algorithm
-  encryption_algorithm     = var.vpc_management_vpn_s2s.phase2.encryption_algorithm
-  pfs                      = "disabled"
-}*/
-
-
+resource "ibm_is_ipsec_policy" "ipsec_policy" {
+  for_each =  {for k, v in local.vpn_connection_map : k => v if lookup(v, "ipsec_policy", null) != null }
+    
+  name                     = "${var.prefix}-${each.key}"
+  resource_group           = ibm_is_vpn_gateway.gateway[each.value.gateway_name].resource_group
+  authentication_algorithm = each.value.ipsec_policy.authentication_algorithm
+  encryption_algorithm     = each.value.ipsec_policy.encryption_algorithm
+  pfs                      = each.value.ipsec_policy.pfs
+}
 
 ##############################################################################
 # Create VPN Gateways
