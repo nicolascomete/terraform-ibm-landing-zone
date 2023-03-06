@@ -11,10 +11,10 @@ locals {
     
     
 resource "ibm_is_ike_policy" "ike_policy" {
-  for_each                 =  {for k, v in local.vpn_connection_map : k => v if lookup(v, "ike_policy", null) != null }
-  name                     = "${var.prefix}-${each.key}"
-  #resource_group           = ibm_is_vpn_gateway.gateway[each.value.gateway_name].id
+  for_each =  {for k, v in local.vpn_connection_map : k => v if lookup(v, "ike_policy", null) != null }
   
+  name                     = "${var.prefix}-${each.key}"
+  resource_group           = ibm_is_vpn_gateway.gateway[each.value.gateway_name].resource_group.id
   authentication_algorithm = each.value.ike_policy.authentication_algorithm
   encryption_algorithm     = each.value.ike_policy.encryption_algorithm
   dh_group                 = each.value.ike_policy.dh_group 
