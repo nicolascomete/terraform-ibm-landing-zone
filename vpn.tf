@@ -11,7 +11,7 @@ locals {
     
     
 resource "ibm_is_ike_policy" "ike_policy" {
-  for_each                  =  {for k, v in local.vpn_connection_map : k => v if lookup(v, "ike_policy", null)}
+  for_each                  =  {for k, v in local.vpn_connection_map : k => v if lookup(v, "ike_policy", null) != null }
   name                      = "${var.prefix}-${k}"
   #resource_group           = ibm_is_vpn_gateway.gateway[each.value.gateway_name].
   
