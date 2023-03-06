@@ -8,6 +8,26 @@ locals {
 }
 
 ##############################################################################
+    
+    
+/*resource "ibm_is_ike_policy" "workload_ike_policy" {
+  name                     = "${var.prefix}-${var.vpc_workload.prefix}-ike-policy"
+  resource_group           = each.value.resource_group == null ? null : local.resource_groups[each.value.resource_group]
+  
+  authentication_algorithm = var.vpc_management_vpn_s2s.phase1.authentication_algorithm
+  encryption_algorithm     = var.vpc_management_vpn_s2s.phase1.encryption_algorithm
+  dh_group                 = var.vpc_management_vpn_s2s.phase1.dh_group 
+  ike_version              = var.vpc_management_vpn_s2s.phase1.ike_version
+}
+
+resource "ibm_is_ipsec_policy" "workload_ipsec_policy" {
+  name                     = "${var.prefix}-${var.vpc_workload.prefix}-ipsec-policy"
+  resource_group           = data.ibm_resource_group.resource_group.id
+  authentication_algorithm = var.vpc_management_vpn_s2s.phase2.authentication_algorithm
+  encryption_algorithm     = var.vpc_management_vpn_s2s.phase2.encryption_algorithm
+  pfs                      = "disabled"
+}*/
+
 
 
 ##############################################################################
