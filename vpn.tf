@@ -14,9 +14,9 @@ resource "ibm_is_ike_policy" "ike_policy" {
   name                     = for_each({for k, v in local.vpn_connection_map : "${var.prefix}-${k}" => v if lookup(v, "ike_policy", null)})
   #resource_group           = ibm_is_vpn_gateway.gateway[each.value.gateway_name].
   
-  #authentication_algorithm = var.vpc_management_vpn_s2s.phase1.authentication_algorithm
-  #encryption_algorithm     = var.vpc_management_vpn_s2s.phase1.encryption_algorithm
-  #dh_group                 = var.vpc_management_vpn_s2s.phase1.dh_group 
+  authentication_algorithm = "sha256" #var.vpc_management_vpn_s2s.phase1.authentication_algorithm
+  encryption_algorithm     = "aes256" #var.vpc_management_vpn_s2s.phase1.encryption_algorithm
+  dh_group                 = 14 #var.vpc_management_vpn_s2s.phase1.dh_group 
   #ike_version              = var.vpc_management_vpn_s2s.phase1.ike_version
 }
 
