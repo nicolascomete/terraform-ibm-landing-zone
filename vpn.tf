@@ -13,12 +13,12 @@ locals {
 resource "ibm_is_ike_policy" "ike_policy" {
   for_each                 =  {for k, v in local.vpn_connection_map : k => v if lookup(v, "ike_policy", null) != null }
   name                     = "${var.prefix}-${each.key}"
-  #resource_group           = ibm_is_vpn_gateway.gateway[each.value.gateway_name].
+  #resource_group           = ibm_is_vpn_gateway.gateway[each.value.gateway_name].id
   
-  authentication_algorithm = "sha256" #var.vpc_management_vpn_s2s.phase1.authentication_algorithm
-  encryption_algorithm     = "aes256" #var.vpc_management_vpn_s2s.phase1.encryption_algorithm
-  dh_group                 = 14 #var.vpc_management_vpn_s2s.phase1.dh_group 
-  #ike_version              = var.vpc_management_vpn_s2s.phase1.ike_version
+  authentication_algorithm = each.value.authentication_algorithm
+  encryption_algorithm     = each.value.encryption_algorithm
+  dh_group                 = each.value.dh_group 
+  ike_version              = each.value.ike_version
 }
 
 /*resource "ibm_is_ipsec_policy" "ipsec_policy" {
