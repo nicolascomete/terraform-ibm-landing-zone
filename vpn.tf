@@ -56,8 +56,8 @@ resource "ibm_is_vpn_gateway_connection" "gateway_connection" {
   local_cidrs    = each.value.local_cidrs
   peer_cidrs     = each.value.peer_cidrs
   admin_state_up = each.value.admin_state_up
-  ike_policy     = lookup(each.value, "ike_policy", null) == null ? null : ibm_is_ike_policy.ike_policy[each.value, "ike_policy"]
-  ipsec_policy   = lookup(each.value, "ipsec_policy", null) == null ? null : ibm_is_ipsec_policy.ipsec_policy[each.value, "ipsec_policy"]
+  ike_policy     = lookup(each.value, "ike_policy", null) == null ? null : ibm_is_ike_policy.ike_policy[each.value.ike_policy]
+  ipsec_policy   = lookup(each.value, "ipsec_policy", null) == null ? null : ibm_is_ipsec_policy.ipsec_policy[each.value.ipsec_policy]
 }
 
 ##############################################################################
