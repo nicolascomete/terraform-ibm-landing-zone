@@ -10,8 +10,7 @@ locals {
 ##############################################################################
 
 resource "ibm_is_ike_policy" "ike_policy" {
-  for_each =  {for k, v in local.vpn_connection_map : k => v if lookup(v, "ike_policy", null) != null }
-  
+  for_each                 = { for k, v in local.vpn_connection_map : k => v if lookup(v, "ike_policy", null) != null }
   name                     = "${var.prefix}-${each.key}"
   resource_group           = ibm_is_vpn_gateway.gateway[each.value.gateway_name].resource_group
   authentication_algorithm = each.value.ike_policy.authentication_algorithm
@@ -21,8 +20,7 @@ resource "ibm_is_ike_policy" "ike_policy" {
 }
 
 resource "ibm_is_ipsec_policy" "ipsec_policy" {
-  for_each =  {for k, v in local.vpn_connection_map : k => v if lookup(v, "ipsec_policy", null) != null }
-    
+  for_each                 = { for k, v in local.vpn_connection_map : k => v if lookup(v, "ipsec_policy", null) != null } 
   name                     = "${var.prefix}-${each.key}"
   resource_group           = ibm_is_vpn_gateway.gateway[each.value.gateway_name].resource_group
   authentication_algorithm = each.value.ipsec_policy.authentication_algorithm
@@ -56,8 +54,8 @@ resource "ibm_is_vpn_gateway_connection" "gateway_connection" {
   local_cidrs    = each.value.local_cidrs
   peer_cidrs     = each.value.peer_cidrs
   admin_state_up = each.value.admin_state_up
-  ike_policy     = lookup(each.value, "ike_policy", null) == null ? null : ibm_is_ike_policy.ike_policy[each.key]
-  ipsec_policy   = lookup(each.value, "ipsec_policy", null) == null ? null : ibm_is_ipsec_policy.ipsec_policy[each.key]
+  ike_policy     = lookup(each.value, "ike_policy", null) == null ? null : ibm_is_ike_policy.ike_policy[each.key].id
+  ipsec_policy   = lookup(each.value, "ipsec_policy", null) == null ? null : ibm_is_ipsec_policy.ipsec_policy[each.key].id
 }
 
 ##############################################################################
