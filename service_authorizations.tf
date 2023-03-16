@@ -5,7 +5,7 @@
 ##############################################################################
 
 locals {
-  authorization_policies = var.another_slz_exists_in_account ? [ for v in module.dynamic_values.service_authorizations v if contains(["Allow block storage volumes to be encrypted by KMS instance"], v.description)]: module.dynamic_values.service_authorizations
+  authorization_policies = var.another_slz_exists_in_account ? [ for v in module.dynamic_values.service_authorizations : v if contains(["Allow block storage volumes to be encrypted by KMS instance"], v.description)]: module.dynamic_values.service_authorizations
 }
 
 ##############################################################################
