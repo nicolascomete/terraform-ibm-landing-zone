@@ -26,7 +26,7 @@ module "vpc" {
   network_acls                = each.value.network_acls
   use_public_gateways         = each.value.use_public_gateways
   subnets                     = each.value.subnets
-  route                       = each.value.route
+  routes                      = each.value.routes
 }
 
 
