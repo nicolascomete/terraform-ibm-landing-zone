@@ -26,7 +26,7 @@ module "vpc" {
   network_acls                = each.value.network_acls
   use_public_gateways         = each.value.use_public_gateways
   subnets                     = each.value.subnets
-  routes                      = lookup(each.value, "routes", null)
+  routes                      = lookup(each.value, "routes", [])
 }
 
 
