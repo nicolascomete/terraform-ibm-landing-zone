@@ -4,6 +4,7 @@
 
 variable "another_slz_exists_in_account" {
   default = false
+  type    = bool
 }
 
 variable "prefix" {
